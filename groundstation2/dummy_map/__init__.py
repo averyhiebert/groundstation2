@@ -21,6 +21,7 @@ class DataDisplayWidget(MainForm):
         ''' Handle incoming data by displaying latitude and longitude. '''
         self.lat_display.setText(str(new_data["latitude"]))
         self.lon_display.setText(str(new_data["longitude"]))
+        self.alt_display.setText(str(new_data["altitude"]))
 
 
 if __name__=="__main__":
@@ -28,5 +29,5 @@ if __name__=="__main__":
     app = QtGui.QApplication(sys.argv)
     widg = DataDisplayWidget()
     widg.show()
-    widg.newData.emit({"latitude":13.233,"longitude":12})
+    widg.newData.emit({"latitude":13.233,"longitude":12, "altitude":14})
     app.exec_()
