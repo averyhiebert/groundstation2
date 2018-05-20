@@ -13,29 +13,32 @@ import os, errno
 
 class Logger:
     def __init__(self, logFileName):
-        self.logFileName = logFileName        
+        self.logFileName = logFileName     
+        self.logFile = open(self.logFileName,"a")   
     
     #write the elements of the dictionary in the file
-    def write(self, dictionary):
-        logFile = open(self.logFileName, "a")
+    def append(self, dictionary):
         for param, value in dictionary.iteritems():
-            logFile.write("\n" + param + ": " + value)
-        
-        logFile.close()
+            self.logFile.write("\n" + param + ": " + value)
+
+    #close the file when you are done
+    def close(self):
+        self.logFile.close()   
      
     #delete the file 
     def delete(self):
         try:
             os.remove(self.logFileName)
         except OSError:
-            pass
+            print("There is no such file")
 
 	
 
 
 #Below is the testing of the program
 myLogger = Logger("logFIle.txt")
-data = {"time":"5:15","latitude":"150m"}
-myLogger.write(data)
+data = {"time":"2:15","latitude":"150m"}
+myLogger.append(data)
+myLogger.close()
 
 #myLogger.delete()
