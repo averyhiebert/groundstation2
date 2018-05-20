@@ -9,6 +9,7 @@
 #Writing: Whenever you need to write something just pass in the dictionary
 #----------------------------------------------------------
 
+import json
 import os, errno
 
 class Logger:
@@ -18,8 +19,7 @@ class Logger:
     
     #write the elements of the dictionary in the file
     def append(self, dictionary):
-        for param, value in dictionary.iteritems():
-            self.logFile.write("\n" + param + ": " + value)
+        json.dump(dictionary, self.logFile)
 
     #close the file when you are done
     def close(self):
