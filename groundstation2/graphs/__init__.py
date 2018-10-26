@@ -30,26 +30,41 @@ class GraphDisplayWidget(QtGui.QDialog):
         #layout.addWidget(self.canvas2)
         self.setLayout(layout)
         self.newData.connect(self.on_newData)
+        self.startListening()
+        self.sendData()
 
+    def startListening(self):
         self.ax1 = self.figure1.add_subplot(1,1,1)
         #ax2 = self.figure2.add_subplot(1,1,1)
         self.ax1.set_title("Altitude")
         #ax2.set_title("Velocity")
 
-        def animate(i):
-            self.ax1.clear()
-            self.ax1.plot(self.time_data, self.altitude_data)
-
-        ani1 = animation.FuncAnimation(self.figure1, animate, interval = 1000)
+        ani1 = animation.FuncAnimation(self.figure1, self.on_newData, interval = 1000)
         #ani2 = animation.FuncAnimation(self.figure2, animate, interval = 1000)
 
         self.canvas1.draw()
         #self.canvas2.draw()
 
     def on_newData(self, new_data):
+        if new_data["timestamp"] not in self.time_data:
             self.altitude_data.append(new_data["altitude"])
             self.time_data.append(new_data["timestamp"])
             print("New Data Signal!")
+        self.ax1.clear()
+        self.ax1.plot(self.time_data, self.altitude_data)
+
+    def sendData(self):
+        self.newData.emit({"latitude":13.233,"longitude":12, "altitude":14, "timestamp":0})
+        time.sleep(1)
+        self.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":1000})
+        time.sleep(1)
+        self.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":2000})
+        time.sleep(1)
+        self.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":3000})
+        time.sleep(1)
+        self.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":4000})
+        time.sleep(1)
+        self.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":5000})
 
 if __name__=="__main__":
     # Run the widget on its own for testing purposes
@@ -57,15 +72,3 @@ if __name__=="__main__":
     widg = GraphDisplayWidget()
     widg.show()
     app.exec_()
-    widg.newData.emit({"latitude":13.233,"longitude":12, "altitude":14, "timestamp":0})
-    time.sleep(1)
-    widg.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":1000})
-    time.sleep(1)
-    widg.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":2000})
-    time.sleep(1)
-    widg.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":3000})
-    time.sleep(1)
-    widg.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":4000})
-    time.sleep(1)
-    widg.newData.emit({"latitude":13.233,"longitude":12, "altitude":17, "timestamp":5000})
-    
