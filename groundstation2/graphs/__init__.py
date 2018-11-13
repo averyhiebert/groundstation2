@@ -2,7 +2,6 @@ import pyqtgraph as pg
 from PyQt4 import QtGui
 from PyQt4 import QtCore
 import sys
-import time
 
 class GraphDisplayWidget(QtGui.QDialog):
     newData = QtCore.pyqtSignal(object)
@@ -35,13 +34,21 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     widg = GraphDisplayWidget()
     timer = pg.QtCore.QTimer()
-    def sendData():
-        yield lambda: widg.newData.emit({"altitude": 0, "timestamp": 0})
-        yield lambda: widg.newData.emit({"altitude": 1, "timestamp": 1})
-        yield lambda: widg.newData.emit({"altitude": 2, "timestamp": 2})
-        yield lambda: widg.newData.emit({"altitude": 3, "timestamp": 3})
-        yield lambda: widg.newData.emit({"altitude": 4, "timestamp": 4})
-    a = sendData()
-    timer.timeout.connect(next(a))
-    timer.start(2000)
+    def alt():
+        alt = 1
+        while True:
+            yield alt
+            if alt <= 100:
+                alt += alt
+            elif alt > 100:
+                alt = 1
+    def time():
+        time = 0
+        while True:
+            yield time
+            time += 1
+    a = alt()
+    t = time()
+    timer.timeout.connect(lambda: widg.newData.emit({"altitude": next(a), "timestamp": next(t)}))
+    timer.start(1000)
     app.exec_()
