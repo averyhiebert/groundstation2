@@ -13,6 +13,8 @@ if __name__=="__main__":
     # Create temporary function for "sending" data to any widgets that need it.
     def handle_data(data):
         main_window.mapWidgetPlaceholder.newData.emit(data)
+        main_window.altitudeGraphWidget.newData.emit(data)
+        main_window.velocityGraphWidget.newData.emit(data)
     # Set a data source for the controls widget to control
     main_window.controlsWidgetPlaceholder.set_data_source(
         DummyDataSource(handle_data))

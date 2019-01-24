@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>668</width>
-    <height>717</height>
+    <width>580</width>
+    <height>710</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,6 +33,29 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="graphTab">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="acceptDrops">
+        <bool>false</bool>
+       </property>
+       <attribute name="title">
+        <string>Graphs</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="altitudeGraphDisplayWidget" name="altitudeGraphWidget">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="velocityGraphDisplayWidget" name="velocityGraphWidget"/>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="controlsTab">
        <attribute name="title">
         <string>Controls</string>
@@ -55,7 +78,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>668</width>
+     <width>580</width>
      <height>28</height>
     </rect>
    </property>
@@ -88,6 +111,16 @@
    <class>DataDisplayWidget</class>
    <extends>QGraphicsView</extends>
    <header>dummy_map</header>
+  </customwidget>
+  <customwidget>
+   <class>altitudeGraphDisplayWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>graphs.h</header>
+  </customwidget>
+  <customwidget>
+   <class>velocityGraphDisplayWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>graphs.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

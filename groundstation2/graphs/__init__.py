@@ -3,25 +3,21 @@ from PyQt4 import QtGui
 from PyQt4 import QtCore
 import sys
 
-class GraphDisplayWidget(QtGui.QDialog):
+class altitudeGraphDisplayWidget(QtGui.QGraphicsView):
     newData = QtCore.pyqtSignal(object)
 
     def __init__(self, parent = None):
-        super(GraphDisplayWidget, self).__init__(parent)
+        super(altitudeGraphDisplayWidget, self).__init__(parent)
 
-        pg.setConfigOption('background', 'w')
-        pg.setConfigOption('foreground', 'k')
+        pg.setConfigOption('background', 'k')
+        pg.setConfigOption('foreground', 'w')
 
-        self.view1 = pg.GraphicsView()
-        self.view2 = pg.GraphicsView()
-        self.graphpaper1 = pg.PlotItem()
-        self.graphpaper2 = pg.PlotItem()
-        self.view1.setCentralWidget(self.graphpaper1)
-        self.view2.setCentralWidget(self.graphpaper2)
-        self.PenStyle = {'width': 1.5, 'color':(0,0,0)}
+        self.view = pg.GraphicsView()
+        self.graphpaper = pg.PlotItem()
+        self.view.setCentralWidget(self.graphpaper)
+        self.PenStyle = {'width': 3, 'color':(255,255,255)}
         layout = QtGui.QVBoxLayout()
-        layout.addWidget(self.view1)
-        layout.addWidget(self.view2)
+        layout.addWidget(self.view)
         self.setLayout(layout)
         self.show()
         self.TimeData = []
@@ -34,21 +30,51 @@ class GraphDisplayWidget(QtGui.QDialog):
     def update(self, new_data):
         self.TimeData.append(new_data["timestamp"])
         self.AltitudeData.append(new_data["altitude"])
-        self.graphpaper1.plot(self.TimeData, self.AltitudeData, pen = self.PenStyle)
+        self.graphpaper.plot(self.TimeData, self.AltitudeData, pen = self.PenStyle)
+
+class velocityGraphDisplayWidget(QtGui.QGraphicsView):
+    newData = QtCore.pyqtSignal(object)
+
+    def __init__(self, parent = None):
+        super(velocityGraphDisplayWidget, self).__init__(parent)
+
+        pg.setConfigOption('background', 'k')
+        pg.setConfigOption('foreground', 'w')
+
+        self.view = pg.GraphicsView()
+        self.graphpaper = pg.PlotItem()
+        self.view.setCentralWidget(self.graphpaper)
+        self.PenStyle = {'width': 3, 'color':(255,255,255)}
+        layout = QtGui.QVBoxLayout()
+        layout.addWidget(self.view)
+        self.setLayout(layout)
+        self.show()
+        self.TimeData = []
+        self.AltitudeData = []
+        self.VelocityData = []
+        self.alt = 0
+        self.t = 0
+        self.newData.connect(self.update)
+
+    def update(self, new_data):
+        self.TimeData.append(new_data["timestamp"])
+        self.AltitudeData.append(new_data["altitude"])
         if new_data["timestamp"] != 0:
             alt_difference = new_data["altitude"] - self.alt
             t_difference = new_data["timestamp"] - self.t
             vel = alt_difference/t_difference
             self.VelocityData.append(vel)
-            self.graphpaper2.plot(self.TimeData, self.VelocityData, pen = self.PenStyle)
         else:
             self.VelocityData.append(0)
+        self.graphpaper.plot(self.TimeData, self.VelocityData, pen = self.PenStyle)
         self.alt =  new_data["altitude"]
         self.t = new_data["timestamp"]
+
 if __name__ == "__main__":
 
     app = QtGui.QApplication(sys.argv)
-    widg = GraphDisplayWidget()
+    widg1 = altitudeGraphDisplayWidget()
+    widg2 = velocityGraphDisplayWidget()
     timer = pg.QtCore.QTimer()
     def alt():
         alt = 1
@@ -65,6 +91,7 @@ if __name__ == "__main__":
             time += 1
     a = alt()
     t = time()
-    timer.timeout.connect(lambda: widg.newData.emit({"altitude": next(a), "timestamp": next(t)}))
+    timer.timeout.connect(lambda: widg1.newData.emit({"altitude": next(a), "timestamp": next(t)}))
+    timer.timeout.connect(lambda: widg2.newData.emit({"altitude": next(a), "timestamp": next(t)}))
     timer.start(1000)
     app.exec_()
