@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>710</height>
+    <width>562</width>
+    <height>688</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,11 +18,11 @@
     <item>
      <widget class="QTabWidget" name="main_tab_widget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="mapTab">
        <attribute name="title">
-        <string>Map</string>
+        <string>Info (remove this?)</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <property name="margin">
@@ -30,6 +30,19 @@
         </property>
         <item>
          <widget class="DataDisplayWidget" name="mapWidgetPlaceholder"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="main_map_tab">
+       <attribute name="title">
+        <string>Map</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="margin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="MapTracker" name="mainMapWidget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -78,8 +91,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>580</width>
-     <height>28</height>
+     <width>562</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu">
@@ -121,6 +134,12 @@
    <class>velocityGraphDisplayWidget</class>
    <extends>QGraphicsView</extends>
    <header>graphs.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MapTracker</class>
+   <extends>QWidget</extends>
+   <header>mapping.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

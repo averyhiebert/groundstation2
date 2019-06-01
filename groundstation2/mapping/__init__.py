@@ -15,9 +15,10 @@ def print_extent(ext):
 class MapTracker(QtGui.QWidget):
     newData = QtCore.pyqtSignal(object)
 
-    def __init__(self, base_layer_source="WMS"):
+    def __init__(self,parent=None):
         ''' base_layer_source should be a path to a file, OR the string "WMS". '''
-        super(MapTracker, self).__init__()
+        base_layer_source="WMS"
+        super(MapTracker, self).__init__(parent)
         self.base_layer_source = base_layer_source
         self.newData.connect(self.on_newData)
 
@@ -30,6 +31,10 @@ class MapTracker(QtGui.QWidget):
 
         self.canvas.enableAntiAliasing(True)
         self.canvas.show()
+
+        # Insert canvas into self
+        _layout = QtGui.QVBoxLayout(self)
+        _layout.addWidget(self.canvas)
         
         # Add mouse pan functionality
         self.toolPan = QgsMapToolPan(self.canvas)
@@ -125,9 +130,10 @@ if __name__=="__main__":
         app = QgsApplication([],True)
         QgsApplication.setPrefixPath(u'/usr/',True)
         QgsApplication.initQgis()
+        print("test")
 
         #m = MapTracker(base_layer_source = "/home/avery/Desktop/rocketry/GIS stuff/albertaimagery/rocklakeimagery/rocklake.tif")
-        m = MapTracker(base_layer_source = "WMS")
+        m = MapTracker()
 
         # Test update function by sending random data on a timer.
         timer = QtCore.QTimer()
