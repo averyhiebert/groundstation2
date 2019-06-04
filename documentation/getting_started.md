@@ -32,6 +32,11 @@ the application's visual interface.  The `pyqt4-dev-tools` package
 contains the `pyuic4` utility, which we use to compile the `.ui` files into
 python files.)
 
+The software QGIS (ideally version 2.8.6, although other 2.x versions may also
+work), and associated python bindings, are also required.  Now that
+version 3 is out, I'm not sure what the correct way to install an older version
+is.  Sorry.
+
 Finally, install the following dependencies via pip:
 ```
 pip install pyqtgraph
