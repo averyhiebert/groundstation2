@@ -1,10 +1,11 @@
 # UVic Rocketry Ground Station V2
 This is the second version of UVic Rocketry's ground station software 
 for receiving and visualizing live telemetry from a rocket using a
-software-defined radio.
+software-defined radio.  The previous version can be found [here](https://github.com/averyhiebert/groundstation).
 
-The software is currently in early development and is not yet functional.  It's
-been developed very slowly for the past 2 years, but if anyone (at UVic or
+The software is still under development and is not yet functional (although at
+this point many of the individual pieces of functionality are implemented).  
+It's been developed very slowly for the past 2 years, but if anyone (at UVic or
 elsewhere) wants to take it up and build on it, that'd be great.
 
 ## Planned Functionality
@@ -21,9 +22,9 @@ QGIS3/Python3/Qt5 should ideally occure eventually.
 Read `documentation/getting_started.md`
 
 ## Dependencies
-The software was developed using Ubuntu 16.  Since the application is primarily
-in Python, it should work across other platforms, but many of the dependencies
-may only be available for Linux.
+The software has been developed mainly in Ubuntu and Linux Mint.  Since the 
+application is primarily in Python, it should work across other platforms, 
+but some dependencies might not be conveniently available for other OSes.
 
 The PyQt4 Python bindings (`python-qt4`) for the Qt application framework 
 are required, along with the pyqt4 dev tools (`pyqt4-dev-tools`) and the
