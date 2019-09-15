@@ -1,7 +1,7 @@
 import sys
 from PyQt4 import QtGui, QtCore
-from qgis.core import *
-from qgis.gui import *
+#from qgis.core import *
+#from qgis.gui import *
 
 def print_extent(ext):
         # (TEMP)
@@ -26,6 +26,7 @@ class MapTracker(QtGui.QWidget):
 
     def initUI(self):
         # Create a map canvas
+        '''
         self.canvas = QgsMapCanvas()
         self.canvas.setCanvasColor(QtGui.QColor(220,220,220,255))
 
@@ -46,6 +47,8 @@ class MapTracker(QtGui.QWidget):
         # Add the base layer to the map
         #  (Note: this adds several properties corresponding to map layers)
         self.setUpMap(self.base_layer_source)
+        '''
+        pass
 
 
 
@@ -53,6 +56,7 @@ class MapTracker(QtGui.QWidget):
         ''' Set the base layer of the map. '''
         # Create the base layer of the map, possibly loaded from a file
         #  (e.g. geotiff or something)
+        '''
         if path == "WMS":
             url = "contextualWMSLegend=0&crs=EPSG:4326&dpiMode=7&featureCount=10&format=image/jpeg&layers=OSM-WMS&layers=OSM-Overlay-WMS&layers=TOPO-WMS&layers=TOPO-OSM-WMS&styles=&styles=&styles=&styles=&url=http://ows.terrestris.de/osm/service?VERSION%3D1.1.1%26"
             self.base_layer = QgsRasterLayer(url, 'OpenStreetMap', 'wms')
@@ -95,6 +99,8 @@ class MapTracker(QtGui.QWidget):
              QgsMapCanvasLayer(self.history_layer), 
              QgsMapCanvasLayer(self.base_layer)])
         self.canvas.setExtent(self.location_layer.extent())
+        '''
+        pass
         
 
     @QtCore.pyqtSlot(object)
@@ -108,6 +114,7 @@ class MapTracker(QtGui.QWidget):
         lat = new_data["latitude"]
 
         # Clear existing marker and replace with new one
+        '''
         self.location_pr.deleteFeatures(
             [f.id() for f in self.location_layer.getFeatures()])
         p = QgsFeature()
@@ -124,6 +131,8 @@ class MapTracker(QtGui.QWidget):
 
         self.prev_lon_lat = (lon, lat) # Update "previous lon/lat"
         self.canvas.refresh()
+        '''
+        pass
 
 
 if __name__=="__main__":
