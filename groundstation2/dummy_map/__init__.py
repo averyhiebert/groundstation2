@@ -1,19 +1,21 @@
 ''' A widget which will eventually be replaced by a map display.'''
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 import sys
 
-from dataDisplay_UI import MainForm
+from .dataDisplay_UI import Ui_MainForm
 
-class DataDisplayWidget(MainForm):
+
+class DataDisplayWidget(QtWidgets.QWidget, Ui_MainForm):
     ''' An extension of the auto-generated data display widget, 
     with custom functionality added to allow updating the display.'''
 
     # Use a signal to receive new data points from the application
     newData = QtCore.pyqtSignal(object)
 
-    def __init__(self,parent=None):
-        super(DataDisplayWidget,self).__init__(parent)
+    def __init__(self,*args, obj=None,**kwargs):
+        super(DataDisplayWidget,self).__init__(*args,**kwargs)
+        self.setupUi(self)
         self.newData.connect(self.on_newData)
 
     @QtCore.pyqtSlot(object)
@@ -22,6 +24,7 @@ class DataDisplayWidget(MainForm):
         self.lat_display.setText(str(new_data["latitude"]))
         self.lon_display.setText(str(new_data["longitude"]))
         self.alt_display.setText(str(new_data["altitude"]))
+
 
 
 if __name__=="__main__":

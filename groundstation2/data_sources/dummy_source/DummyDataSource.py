@@ -57,9 +57,7 @@ class DummyDataSource(AbstractDataSource):
 
 def main():
     ''' Useful for testing. '''
-    def pr(x):
-        print x
-    DDS = DummyDataSource(pr)
+    DDS = DummyDataSource(print)
     DDS.start_stream()
     time.sleep(5)
     DDS.stop_stream()

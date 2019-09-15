@@ -1,7 +1,7 @@
 all: ui
 
 ui:
-	pyuic4 -w mainWindow.ui -o mainWindow_UI.py
+	pyuic5 mainWindow.ui -o mainWindow_UI.py
 	$(MAKE) -C dummy_map
 	$(MAKE) -C data_sources/dummy_source
 

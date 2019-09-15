@@ -1,5 +1,6 @@
 import sys
-from PyQt4 import QtGui, QtCore
+#from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore
 #from qgis.core import *
 #from qgis.gui import *
 

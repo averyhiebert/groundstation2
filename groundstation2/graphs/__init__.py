@@ -1,6 +1,5 @@
 import pyqtgraph as pg
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from PyQt5 import QtGui, QtCore
 import sys
 
 class altitudeGraphDisplayWidget(QtGui.QGraphicsView):
