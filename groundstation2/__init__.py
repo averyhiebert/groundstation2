@@ -2,7 +2,7 @@
 the main window and start the application.'''
 
 from PyQt5 import QtGui, QtCore, QtWidgets
-#from qgis.core import QgsApplication
+from qgis.core import QgsApplication
 import sys
 
 from mainWindow_UI import Ui_MainWindow
@@ -16,15 +16,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
 if __name__=="__main__":
-    # Reintroduce the following once QGIS stuff is updated:
-    #app = QtGui.QApplication(sys.argv)
-    #app = QgsApplication([],True)
-    #QgsApplication.setPrefixPath(u'/usr/',True)
-    #QgsApplication.initQgis()
-    app = QtWidgets.QApplication(sys.argv)
+    app = QgsApplication([],True)
+    QgsApplication.setPrefixPath(u'/usr/',True)
+    QgsApplication.initQgis()
 
     main_window = MainWindow()
-
 
     # Create temporary function for "sending" data to any widgets that need it.
     def handle_data(data):
@@ -33,6 +29,7 @@ if __name__=="__main__":
         main_window.altitudeGraphWidget.newData.emit(data)
         main_window.velocityGraphWidget.newData.emit(data)
         main_window.mainMapWidget.newData.emit(data)
+
     # Set a data source for the controls widget to control
     main_window.controlsWidgetPlaceholder.set_data_source(
         DummyDataSource(handle_data))
