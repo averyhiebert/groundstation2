@@ -32,7 +32,9 @@ interface, you can add a basic "widget" to the interface, and then use
 the "Promote to..." feature to make the compiler replace that widget with the
 component you want at compile time.  Since the Qt Designer interface is not
 primarily designed for Python, doing this involves pointing to a made up
-header file as described [here](https://stackoverflow.com/questions/19622014/how-do-i-use-promote-to-in-qt-designer-in-pyqt4).  
+header file as described [here](https://stackoverflow.com/questions/19622014/how-do-i-use-promote-to-in-qt-designer-in-pyqt4).  Note that we are now using
+pyqt5, not pyqt4, but the process should be similar.
+  
 As a commenter on stackoverflow states, this is "inscrutable black magic", but
 there's not much we can do about it.  Look at `grounstation2/mainWindow.ui` in
 Qt Designer to see an example of this working.

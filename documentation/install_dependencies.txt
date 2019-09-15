@@ -1,0 +1,17 @@
+# Installation instructions for Ubuntu 18.04.3 LTS (Bionic Beaver)
+
+# Install Qt5 and related tools
+sudo apt-get install python3-pyqt5
+sudo apt-get install pyqt5-dev-tools
+
+# Install pyqtgraph
+sudo pip3 install pyqtgraph
+
+# Install QGIS
+#  (see here: https://qgis.org/en/site/forusers/alldownloads.html#debian-ubuntu)
+wget -O - https://qgis.org/downloads/qgis-2019.gpg.key | gpg --import
+gpg --fingerprint 51F523511C7028C3
+gpg --export --armor 51F523511C7028C3 | sudo apt-key add -
+sudo add-apt-repository "deb     https://qgis.org/ubuntu bionic main"
+sudo apt-get update
+sudo apt-get install qgis qgis-plugin-grass
